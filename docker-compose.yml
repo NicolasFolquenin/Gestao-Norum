@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: norum-app-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # Descomente a linha abaixo e configure um certificado SSL no host/proxy caso não vá usar um proxy reverso externo
+      # - "443:443"
+    environment:
+      - NODE_ENV=production
