@@ -6,6 +6,7 @@ import { Condominios } from "./pages/Condominios";
 import { Servicos } from "./pages/Servicos";
 import { Modal, Actions } from "./components/ui";
 import { Settings, Shield } from "lucide-react";
+import { TelaLogin, Saudacao } from "./components/TelaLogin";
 import './styles/global.css';
 
 const TIPOS_ITEM = {
@@ -56,6 +57,7 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [condAberto, setCondAberto] = useState(null);
   const [usuario, setUsuario] = useState(null);
+  const [saudacao, setSaudacao] = useState(false);
   const [erroBanco, setErroBanco] = useState("");
 
   const recarregar = useCallback(async () => {
@@ -72,7 +74,7 @@ export default function App() {
     });
   }, [recarregar]);
 
-  const aoEntrar = async (nome) => { setUsuario(nome); await recarregar(); };
+  const aoEntrar = async (nome) => { setUsuario(nome); setSaudacao(true); await recarregar(); };
   const sair = async () => { await supabase.auth.signOut(); setUsuario(null); setDb(null); setAba("painel"); };
 
   if (!usuario) return <TelaLogin onEntrar={aoEntrar} />;
@@ -122,6 +124,7 @@ export default function App() {
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
+      {saudacao && <Saudacao usuario={usuario} onFim={() => setSaudacao(false)} />}
       <Sidebar aba={aba} setAba={setAba} alertas={alertas.length} usuario={usuario} sair={sair} />
       
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, padding: 32 }}>
