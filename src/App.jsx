@@ -228,31 +228,4 @@ export default function App() {
   );
 }
 
-function TelaLogin({ onEntrar }) {
-  const [login, setLogin] = useState("");
-  const [senha, setSenha] = useState("");
-  
-  const entrar = async () => {
-    const { error, data } = await supabase.auth.signInWithPassword({ email: login, password: senha });
-    if (!error) onEntrar(data.session.user.email.split("@")[0]);
-  };
-  
-  return (
-    <div style={{ height: "100vh", display: "grid", placeItems: "center" }}>
-      <div className="glass fade" style={{ padding: 48, width: 420 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 32 }}>
-          <Shield size={32} color="var(--cyan)" />
-          <div>
-            <div style={{ color: "var(--ink)", fontWeight: 800, letterSpacing: 2, fontSize: 24, fontFamily: "var(--font-display)" }}>NORUM</div>
-            <div style={{ color: "var(--muted)", fontSize: 11, letterSpacing: 1.5 }}>ENGENHARIA</div>
-          </div>
-        </div>
-        <label>Usuário Administrativo</label>
-        <input value={login} onChange={(e) => setLogin(e.target.value)} style={{ marginBottom: 16 }} />
-        <label>Senha de Acesso</label>
-        <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} style={{ marginBottom: 24 }} />
-        <button className="btn btn-primary" style={{ width: "100%", padding: 14, fontSize: 14 }} onClick={entrar}>Autenticar no Sistema</button>
-      </div>
-    </div>
-  );
-}
+
