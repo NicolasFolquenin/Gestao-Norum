@@ -7,7 +7,7 @@ services:
     container_name: norum-app-web
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "3005:80"
     environment:
       - NODE_ENV=production
     depends_on:
